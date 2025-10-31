@@ -4,7 +4,8 @@
 
 ## 特性
 
-- 基于 rat_embed_lang v0.1.0 核心实现
+- 基于 rat_embed_lang v0.1.1 核心实现
+- 支持参数化翻译（如 "欢迎，{username}！"）
 - 支持文件夹和单文件两种组织形式
 - 自动文件扫描和加载
 - 内存缓存，高性能翻译查询
@@ -36,36 +37,13 @@ lang/
 
 ```toml
 [dependencies]
-rat_embed_lang = "0.1.0"
-toml = "0.8"
-serde = { version = "1.0", features = ["derive"] }
-thiserror = "1.0"
+rat_embed_lang = "0.1.1"
+rat_quikc_lang = "0.1.1"
 ```
 
 ## 核心 API
 
-```rust
-use rat_quikc_lang::*;
-
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // 加载多语言文件
-    load_translations("lang")?;
-
-    // 获取翻译
-    println!("{}", t("common.welcome"));
-
-    // 设置语言
-    set_language("zh-CN")?;
-
-    // 获取当前语言
-    println!("当前语言: {}", current_language());
-
-    Ok(())
-}
-```
-
-### API 函数
-
+### 基础翻译
 - `load_translations(base_dir: &str) -> Result<(), LangError>` - 加载语言文件
 - `t(key: &str) -> String` - 获取翻译文本
 - `set_language(lang: &str) -> Result<(), LangError>` - 设置当前语言
@@ -74,6 +52,23 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 - `get_all_keys() -> Vec<String>` - 获取所有翻译键
 - `get_supported_languages(key: &str) -> Vec<String>` - 获取指定键支持的语言
 - `reload(base_dir: &str) -> Result<(), LangError>` - 重新加载语言文件
+
+### 参数化翻译（新增）
+- `tf(key: &str, args: &[(&str, &str)]) -> String` - 获取参数化翻译文本
+- `tf_with_lang(key: &str, lang: &str, args: &[(&str, &str)]) -> String` - 获取指定语言的参数化翻译文本
+
+## 快速开始
+
+查看 `examples/` 目录中的示例代码：
+
+- `basic_usage.rs` - 基础翻译功能
+- `parameterized_translation.rs` - 参数化翻译功能
+
+运行示例：
+```bash
+cargo run --example basic_usage
+cargo run --example parameterized_translation
+```
 
 ## 文件格式
 
@@ -95,6 +90,19 @@ title = "Title"
 exit = "Exit"
 ```
 
+### 参数化翻译示例
+支持在翻译文本中使用 `{参数名}` 格式的占位符：
+
+```toml
+[zh_CN]
+welcome_user = "欢迎，{username}！"
+login_message = "{user}在{time}登录了系统"
+
+[en_US]
+welcome_user = "Welcome, {username}!"
+login_message = "{user} logged in at {time}"
+```
+
 ## 语言代码自动标准化
 
 支持多种格式的语言代码输入：
@@ -102,16 +110,18 @@ exit = "Exit"
 - `en`, `en_us`, `en-us` → `en-US`
 - `ja`, `ja_jp`, `ja-jp` → `ja-JP`
 
-## 运行示例
-
-```bash
-cargo run --example basic_usage
-```
-
 ## 线程安全
 
 基于 rat_embed_lang 的 `RwLock` 实现，支持多线程并发读取。
 
-## 状态
+## 版本历史
 
-当前为基础实现版本，核心功能已完成。
+### v0.1.1
+- 升级到 rat_embed_lang v0.1.1
+- 新增参数化翻译功能支持
+- 添加 `tf()` 和 `tf_with_lang()` API
+
+### v0.1.0
+- 初始版本发布
+- 基础翻译功能
+- 文件夹和单文件支持

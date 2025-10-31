@@ -1,19 +1,19 @@
 [package]
 name = "rat_quikc_lang"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 authors = ["0ldm0s <oldmos@gmail.com>"]
-description = "快速嵌入式语言实现，提供高效的脚本执行和嵌入式集成能力"
+description = "基于rat_embed_lang的多语言包装器，提供简洁的API和自动文件加载功能"
 license = "LGPL-3.0-or-later"
 repository = "https://github.com/0ldm0s/rat_quikc_lang"
 homepage = "https://github.com/0ldm0s/rat_quikc_lang"
 documentation = "https://docs.rs/rat_quikc_lang"
 readme = "README.md"
-keywords = ["embedded", "scripting", "language", "interpreter", "runtime"]
-categories = ["embedded", "development-tools", "parser-implementations"]
+keywords = ["i18n", "internationalization", "localization", "embed", "translation"]
+categories = ["internationalization", "localization", "development-tools"]
 
 [dependencies]
-rat_embed_lang = "0.1.0"
+rat_embed_lang = "0.1.1"
 toml = "0.8"
 serde = { version = "1.0", features = ["derive"] }
 thiserror = "1.0"

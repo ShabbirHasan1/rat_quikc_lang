@@ -1,0 +1,11 @@
+[zh-CN]
+welcome = "欢迎"
+welcome_user = "欢迎，{username}！"
+login_message = "{user}在{time}登录了系统"
+error_message = "错误[{code}]: {desc}"
+
+[en-US]
+welcome = "Welcome"
+welcome_user = "Welcome, {username}!"
+login_message = "{user} logged in at {time}"
+error_message = "Error [{code}]: {desc}"

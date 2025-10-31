@@ -80,6 +80,20 @@ pub fn get_supported_languages(key: &str) -> Vec<String> {
     rat_embed_lang::get_supported_languages(key)
 }
 
+/// 获取参数化翻译文本
+///
+/// # 参数
+/// * `key` - 翻译键
+/// * `args` - 参数数组，格式为 &[("参数名", "参数值")]
+pub fn tf(key: &str, args: &[(&str, &str)]) -> String {
+    rat_embed_lang::tf(key, args)
+}
+
+/// 获取指定语言的参数化翻译文本
+pub fn tf_with_lang(key: &str, lang: &str, args: &[(&str, &str)]) -> String {
+    rat_embed_lang::tf_with_lang(key, lang, args)
+}
+
 /// 重新加载语言文件（用于热重载）
 ///
 /// # 参数
