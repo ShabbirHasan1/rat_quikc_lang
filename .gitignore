@@ -1,0 +1,5 @@
+/target
+
+# 排除所有md文件，除了README文件
+*.md
+!README*.md
